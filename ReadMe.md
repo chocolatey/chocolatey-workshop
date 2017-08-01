@@ -2,11 +2,9 @@
 
 ## Agenda
 
-* Welcome
-* Introductions
+* Welcome / Introductions
 * Introduction to Chocolatey
 * Introduction to Chocolatey for Business
-* Roadmap
 * Exercises 0 - 6 (Setup and Package Creation)
 * Review
 * Rest of Exercises
@@ -129,6 +127,8 @@ Let's start by packaging up and installing Google Chrome
 
 ### Exercise 7: Set up a local Chocolatey.Server
 1. Ensure IIS and Asp.NET are installed
+    * `choco install IIS-WebServer -y --source windowsfeatures`
+    * `choco install IIS-ASPNET45 -y --source windowsfeatures`
 1. `choco install chocolatey.server -y`
 1. Follow instructions at https://chocolatey.org/docs/how-to-set-up-chocolatey-server
 1. Go to http://localhost, verify the setup, look at the password.
