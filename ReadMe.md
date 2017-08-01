@@ -33,6 +33,8 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
    choco feature enable -n internalizeAppendUseOriginalLocation
    choco feature enable -n reduceInstalledPackageSpaceUsage
    ~~~
+ 1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
+ 1. Run `vagrant reload` to reboot the machine.
  1. Install the latest GUI - `choco install chocolateygui --source https://www.myget.org/F/chocolateygui/ --pre -y --ignore-dependencies` - this may error.
  1. Install Launchy - `choco install launchy -y`
  1. Upgrade Notepad++ - `choco upgrade notepadplusplus -y`
