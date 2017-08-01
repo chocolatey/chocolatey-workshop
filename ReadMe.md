@@ -33,7 +33,7 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
    choco feature enable -n internalizeAppendUseOriginalLocation
    choco feature enable -n reduceInstalledPackageSpaceUsage
    ~~~
- 1. Install the latest GUI - `choco install chocolateygui --source https://www.myget.org/F/chocolateygui/ --pre -y` - this may error.
+ 1. Install the latest GUI - `choco install chocolateygui --source https://www.myget.org/F/chocolateygui/ --pre -y --ignore-dependencies` - this may error.
  1. Install Launchy - `choco install launchy -y`
  1. Upgrade Notepad++ - `choco upgrade notepadplusplus -y`
  1. Install baretail - `choco install baretail -y`
@@ -65,15 +65,15 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
 1. Install the package using Chocolatey - `choco install googlechrome -y -s .`
 
 ### Exercise 3: Create a package with Package Builder UI
-Let's start by packaging up and installing Google Chrome
+Let's start by packaging up and installing Puppet
  1. Run PowerShell as an administrator
  1. Type `packagebuilder` and hit enter.
- 1. NEED URL
- 1. In the interface that comes up, let's put in the url
+ 1. Go to http://downloads.puppetlabs.com/windows/puppet5/ (URL: http://downloads.puppetlabs.com/windows/puppet5/puppet-agent-5.0.1-x86.msi - SHA256: 1D1D45FBF8134A70EA3A39F42CA070BD6600B2FA9506B186EBABA20D770858B1 / Url64: http://downloads.puppetlabs.com/windows/puppet5/puppet-agent-5.0.1-x64.msi - SHA256: 992FD379F60C6D57E9E819CFE7EAD423D1C8B547A6994113ECB96A8C0EE6227D)
+ 1. In the interface that comes up, let's put in the Url and 64-bit Url.
  1. Also pass the SHA for verifying the file is what we hope.
  1. Click the box next to "Don't embed (don't include software binaries in package)?"
  1. Click on Nuspec Information tab.
- 1. In id, insert "NEED ID NAME".
+ 1. In id, insert "puppet-agent".
  1. Click Generate
  1. Note that it creates a full package.
  1. Open up the packaging files in code.
@@ -85,7 +85,7 @@ Let's start by packaging up and installing Google Chrome
     * Optionally we can remove some of the comments and areas we don't need to tidy this up.
  1. Right click on nuspec and select "Compile Chocolatey Package..." / type `choco pack` from that directory.
  1. Copy the resulting file up a directory
- 1. Call `choco install id -s . -y` (this tells Chocolatey to install from the local source location ".", which is current directory in both PowerShell.exe and Cmd.exe)
+ 1. Call `choco install puppet-agent -s . -y` (this tells Chocolatey to install from the local source location ".", which is current directory in both PowerShell.exe and Cmd.exe)
 
 ### Exercise 4: Create a package with Package Builder (Right Click)
 
