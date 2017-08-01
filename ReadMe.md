@@ -360,6 +360,6 @@ We are going to create a package that checks for prerequisites prior to the inst
     ~~~
 1. Package up the package and push it to your internal server.
 1. Ensure the chocolatey-core.extension package is up on the internal server as well.
-1. Run `choco install packagewithparameters -s internal_chocolatey --params "'/Parameter1:Yes'"` and note the output.
+1. Run `choco install packagewithparameters -s internal_chocolatey --params "'/LICENSE:Yes'"` and note the output.
 
 ### Exercise 22: Use AutoHotKey for craptastic installers
