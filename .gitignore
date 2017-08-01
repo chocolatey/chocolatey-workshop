@@ -1,0 +1,7 @@
+.vagrant
+dotNetFx40.exe
+.DS_Store
+*chocolatey.license.xml
+demo/resources/installers
+demo/resources/packages
+demo/resources/NetFx4
