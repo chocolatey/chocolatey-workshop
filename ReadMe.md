@@ -9,37 +9,54 @@
 * Review
 * Rest of Exercises
 
+## Terminology
+
+* Package - in Chocolatey-speak, package is strictly a Nupkg file. Binaries and installers are referred to as software or binaries. This reduces confusion.
+* C4B - you see this next to some exercises. This is the short form of Chocolatey for Business.
+
 ## Exercises
+Some of these exercises require a license for the commercial version of Chocolatey. They can be completed with a trial version, but may require pressing enter a few times (and repeating the command if the trial decides not to let Package Builder finish).
+
+If you are completing this lab for FOSS (open source), simply skip those steps that are indicated by either `C4B`, `MSP`, or `Licensed`.
 
 ### Exercise 0: Setup
 
 It's preferred that you perform all of this exercise from a Vagrant image, but you can follow along with a physical Windows box.
 
+#### Vagrant Setup
  1. Ensure you have a recent version of [Vagrant](https://downloads.vagrantup.com). It is suggested you have at least 1.8.x for linked clones which makes Windows VMs come up lightning quick. Windows machine - `choco install vagrant -y` (then `refreshenv`).
  1. Pre-download the vagrant box we will be using - `vagrant init ferventcoder/win2012r2-x64-nocm` (this is a 4GB box, about 8GB unpacked).
- 1. While that is downloading, ensure you have VirtualBox 5 or 5.1 installed. Windows install is `choco install virtualbox -y`
- 1. All the rest of these commands will be done inside the Vagrant box (or box you are using for this).
- 1. Place the license you received by email in demo/resources/licenses. Or copy the `chocolatey.license.xml` to `C:\ProgramData\Chocolatey\license` (you will need to create the license folder).
+ 1. While that is downloading, ensure you have VirtualBox 5 or 5.1 installed. Windows install is `choco install virtualbox -y`.
+ 1. OFFLINE WORKSHOP: If we've had you copy files for offline use of this workshop, copy the packages folder into the `demo/packages` folder. Also copy files from the `downloads` folder to `resources/installers`.
+ 1. OFFLINE: Go to `shell/InstallChocolatey.ps1` and set `$installLocalFile = $true` on line 1.
+ 1. C4B: Place the license you received (by email or fileshare) in `demo/resources/licenses`. Make sure it is named `chocolatey.license.xml`.
  1. Run `vagrant up` (or `vagrant provision` if already running).
+
+#### In the VM / physical system for work shop completion
+
+All the rest of these commands will be done inside the Vagrant box (or box you are using for this workshop).
+
+ 1. C4B: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
  1. Install the licensed edition of Chocolatey - C4B (Chocolatey for Business):
-   * Type `choco install chocolatey.extension -y`
+   * Type `choco install chocolatey.extension -y -s c:\vagrant\packages`
    * If you get curious, check out `choco source list`.
+ 1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`
  1. Run the following commands:
    ~~~sh
-   choco config set virusScannerType VirusTotal
    choco config set cacheLocation c:\programdata\choco-cache
+   ~~~
+1. C4B: Run the following commands:
+   ~~~sh
+   choco config set virusScannerType VirusTotal
    choco feature enable -n virusCheck
    choco feature enable -n allowPreviewFeatures
    choco feature enable -n internalizeAppendUseOriginalLocation
    choco feature enable -n reduceInstalledPackageSpaceUsage
    ~~~
  1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
- 1. Run `vagrant reload` to reboot the machine.
+ 1. OPTIONAL: Run `vagrant reload` to reboot the machine.
  1. Install the latest GUI - `choco install chocolateygui --source https://www.myget.org/F/chocolateygui/ --pre -y --ignore-dependencies` - this may error.
- 1. Install Launchy - `choco install launchy -y`
- 1. Upgrade Notepad++ - `choco upgrade notepadplusplus -y`
- 1. Install baretail - `choco install baretail -y`
- 1. Install or upgrade `choco upgrade git -y`
+ 1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
  1. Open the profile file and add the following content:
 
@@ -49,7 +66,7 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
       Import-Module "$ChocolateyProfile"
     }
     ~~~
- 1. Create a folder for packages - `mkdir packages`
+ 1. Create a folder for packages if it doesn't already exist at c:\packages - `New-Item 'c:\packages' -ItemType 'Directory'`
  1. Navigate to the packages folder. All commands from here will be in that packages folder.
 
 ### Exercise 1: Install Visual Studio Code
@@ -60,13 +77,22 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
 1. Type `code`. Note that it opens Visual Studio Code.
 
 ### Exercise 2: Create a package the old fashioned way
+This is meant to be an exploratory exercise and intentionally doesn't doesn't provide much direction. Most other exercises contain all steps are are very reflective.
+
 1. Download Google Chrome from https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi and https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi.
 1. From a command line, call `choco new googlechrome`
-1. Work through the packaging setup to get a functioning unattended deployment.
+1. Go into the googlechrome folder and read the readme, look through the files that were created and try to create a package just using the 64 bit Google Chrome MSI.
 1. Run `choco pack`
 1. Install the package using Chocolatey - `choco install googlechrome -y -s .`
 
-### Exercise 3: Create a package with Package Builder UI
+Note that first time packaging this kind of throws you into the thick of it to see if the information provided is enough to move forward.
+
+### Exercise 3: Create a package with Package Builder CLI (C4B)
+1. Let's create that GoogleChrome package again.
+1. Run `choco new --file googlechromestandaloneenterprise.msi --file64 googlechromestandaloneenterprise64.msi --build-package --outputdirectory $pwd`
+1. Inspect the output.
+
+### Exercise 4: Create a package with Package Builder UI (C4B)
 Let's start by packaging up and installing Puppet
  1. Run PowerShell as an administrator
  1. Type `packagebuilder` and hit enter.
@@ -89,31 +115,30 @@ Let's start by packaging up and installing Puppet
  1. Copy the resulting file up a directory
  1. Call `choco install puppet-agent -s . -y` (this tells Chocolatey to install from the local source location ".", which is current directory in both PowerShell.exe and Cmd.exe)
 
-### Exercise 4: Create a package with Package Builder (Right Click)
-
-1. Download 1Password from this link - https://d13itkw33a7sus.cloudfront.net/dist/1P/win4/1Password-4.6.0.598.exe (ensure you unblock the file).
+### Exercise 5: Create a package with Package Builder (Right Click) (C4B)
+#### 1Password
+1. Download 1Password from this link - https://d13itkw33a7sus.cloudfront.net/dist/1P/win4/1Password-4.6.0.598.exe (ensure you unblock the file) OR OFFLINE: Find the file in `resources/installers` folder.
 1. Right click on the file and choose "Create Chocolatey Package w/out GUI" - **NOTE**: This may error if UAC is on - if so, choose `Create Chocolatey Package...` instead and just click Generate when it comes up.
 1. Inspect the output.
 1. Let's install this package - `choco install 1password -s . -y --dir c:\programs\1password` (from the working directory where the nupkg is located).
-1. Download Charles Proxy (both 32 and 64 bit) - https://www.charlesproxy.com/download/
+
+#### Charles Proxy
+1. Download Charles Proxy (both 32 and 64 bit) - https://www.charlesproxy.com/download/ OR OFFLINE: Find the file in `resources/installers` folder.
 1. Right click on the 32 bit download and choose "Create Chocolatey Package..."
 1. Add the 64bit one into the field.
 1. Click generate.
 1. Inspect the output.
 1. Install this package with `choco install charles -s . -y` (from the working directory where the nupkg is located)
-1. Download 7zip - http://www.7-zip.org/download.html (just the 64bit version)
+
+#### 7-Zip
+1. Download 7zip - http://www.7-zip.org/download.html (just the 64bit version) OR OFFLINE: Find the file in `resources/installers` folder.
 1. Right click and choose "Create Chocolatey Package..."
 1. Click Generate.
 1. Inspect the output. Note that it doesn't necessarily figure out the silent arguments.
 1. Add the proper silent arguments in the install script.
 1. Right click on the 7zip nuspec and select "Compile Chocolatey Package..."
 
-### Exercise 5: Create a package with Package Builder CLI
-1. Let's create that GoogleChrome package is again.
-1. Run `choco new --file googlechromestandaloneenterprise.msi --file64 googlechromestandaloneenterprise64.msi --build-package --outputdirectory $pwd`
-1. Inspect the output.
-
-### Exercise 6: Create all the packages
+### Exercise 6: Create all the packages (C4B)
 1. Type `packagebuilder`.
 1. Change output directory to add "programs" to the path (just to keep things separate). `C:\packages\programs` if you are in the packages folder.
 1. Click on the Programs and Features tab.
@@ -161,7 +186,7 @@ Let's start by packaging up and installing Puppet
 1. Run `choco outdated`
 1. Note the output.
 
-### Exercise 12: Package Synchronizer - Automatic Sync
+### Exercise 12: Package Synchronizer - Automatic Sync (Licensed)
 1. Run `choco list -lo --include-programs`.
 1. Go to `C:\ProgramData\Chocolatey\lib`. Note the 1password package.
 1. Rename the `C:\ProgramData\Chocolatey\license` folder to `licensed`. This will unlicense Chocolatey.
@@ -173,7 +198,7 @@ Let's start by packaging up and installing Puppet
 1. Look for a lib-synced folder in `C:\ProgramData\Chocolatey`.
 1. Note the contents.
 
-### Exercise 13: Package Synchronizer - Choco Sync
+### Exercise 13: Package Synchronizer - Choco Sync (C4B)
 1. Go to `C:\ProgramData\chocolatey\.chocolatey` and delete the 7zip folder if it exists. Otherwise delete the 1password folder (these folders will have a version after them).
 1. Run `choco list -lo --include-programs`.
 1. Note any applications not being managed as Chocolatey packages.
@@ -184,7 +209,7 @@ Let's start by packaging up and installing Puppet
 1. Run `choco list -lo --include-programs`.
 1. Note any applications not being managed as Chocolatey packages.
 
-### Exercise 14: Internalize AdobeReader package
+### Exercise 14: Internalize AdobeReader package (MSP/C4B)
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
 1. Call `choco download adobereader --internalize`.
 1. While it is downloading, head into the download folder it created.
@@ -194,7 +219,9 @@ Let's start by packaging up and installing Puppet
 1. Note that there is a files folder that contains the binaries.
 1. Note how it has appended `-UseOriginalLocation` to the end of `Install-ChocolateyPackage`.
 
-### Exercise 15: Internalize Notepad++ package
+**NOTE:** You can also complete this exercise with Chocolatey FOSS by manually internalizing the package, see [manually internalizing packages](https://chocolatey.org/docs/how-to-recompile-packages) for more information.
+
+### Exercise 15: Internalize Notepad++ package (MSP/C4B)
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
 1. Call `choco download notepadplusplus --internalize --resources-location http://somewhere/internal` (literally).
 1. While it is downloading, head into the download folder it created.
@@ -203,7 +230,9 @@ Let's start by packaging up and installing Puppet
 1. When it finishes downloading and creating the package, note how that changes.
 1. Note how it appended `UseOriginalLocation` in this case.
 
-### Exercise 16: Download Chocolatey and Licensed packages
+**NOTE:** You can also complete this exercise with Chocolatey FOSS by manually internalizing the package, see [manually internalizing packages](https://chocolatey.org/docs/how-to-recompile-packages) for more information.
+
+### Exercise 16: Download Chocolatey and Licensed packages (Licensed)
 To have a completely offline install for packaging, you need to remove
 
 1. Run `choco source list` to see your sources.
@@ -211,7 +240,7 @@ To have a completely offline install for packaging, you need to remove
 1. Run `choco download chocolatey -s https://chocolatey.org/api/v2/`
 1. Run `choco download chocolatey.server -s https://chocolatey.org/api/v2/`
 1. Run `choco download chocolatey.extension --ignore-dependencies --source https://licensedpackages.chocolatey.org/api/v2/`
-1. Run `choco download chocolatey-agent --ignore-dependencies --source https://licensedpackages.chocolatey.org/api/v2/`
+1. C4B: Run `choco download chocolatey-agent --ignore-dependencies --source https://licensedpackages.chocolatey.org/api/v2/`
 1. Run `choco source disable -n chocolatey.licensed` - **NOTE**: When you have a licensed version of Chocolatey, you are unable to remove this source. It can be disabled though. Also, once this is disabled, you would need your license id as the password you would pass to the licensed source in the previous steps.
 1. Push all of these packages to your internal server.
 1. You are now using Chocolatey with internal only packages.
