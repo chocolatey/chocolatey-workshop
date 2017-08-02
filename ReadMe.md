@@ -55,7 +55,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
    ~~~
  1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
  1. OPTIONAL: Run `vagrant reload` to reboot the machine.
- 1. Install the latest GUI - `choco install chocolateygui --source https://www.myget.org/F/chocolateygui/ --pre -y --ignore-dependencies` - this may error.
+ 1. Install the latest GUI - `choco install chocolateygui --source="'local;https://www.myget.org/F/chocolateygui/'" --pre -y --ignore-dependencies` - this may error.
  1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
  1. Open the profile file and add the following content:
@@ -394,3 +394,4 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Run `choco install packagewithparameters -s internal_chocolatey --params "'/LICENSE:Yes'"` and note the output.
 
 ### Exercise 22: Use AutoHotKey for craptastic installers
+COMING SOON.
