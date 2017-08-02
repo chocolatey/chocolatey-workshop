@@ -4,18 +4,18 @@
   <metadata>
     <!-- == PACKAGE SPECIFIC SECTION == -->
     <id>googlechrome</id>
-    <version>60.0.0</version>
+    <version>60.0.3112.78</version>
     <!-- ============================== -->
 
     <!-- == SOFTWARE SPECIFIC SECTION == -->
     <!-- This section is about the software itself -->
     <title>googlechrome (Install)</title>
     <authors>Google Chrome</authors>
-    
+
     <tags>googlechrome admin browser</tags>
     <summary>Google Chrome</summary>
     <description>Google Chrome description</description>
-   <!-- =============================== -->      
+   <!-- =============================== -->
   </metadata>
   <files>
     <!-- this section controls what actually gets packaged into the Chocolatey package -->
