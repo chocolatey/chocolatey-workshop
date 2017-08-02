@@ -1,9 +1,9 @@
+$installLocalFile = $false
+$localChocolateyPackageFilePath = 'C:\vagrant\packages\chocolatey.0.10.7.nupkg'
+
 $installLatestBeta = $true
 # OR install a version directly
 #$env:chocolateyVersion="0.9.10-beta-20160402"
-
-$installLocalFile = $true
-$localChocolateyPackageFilePath = 'C:\vagrant\packages\chocolatey.0.10.7.nupkg'
 
 $ChocoInstallPath = "$($env:SystemDrive)\ProgramData\Chocolatey\bin"
 $env:ChocolateyInstall = "$($env:SystemDrive)\ProgramData\Chocolatey"
@@ -67,9 +67,9 @@ if (!(Test-Path $ChocoInstallPath)) {
     Install-LocalChocolateyPackage $localChocolateyPackageFilePath
   } else {
     if ($installLatestBeta) {
-      iex ((new-object net.webclient).DownloadString('https://chocolatey.org/installabsolutelatest.ps1'))
+      Invoke-Expression ((new-object net.webclient).DownloadString('https://chocolatey.org/installabsolutelatest.ps1'))
     } else {
-      iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+      Invoke-Expression ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
     }
   }
 }
