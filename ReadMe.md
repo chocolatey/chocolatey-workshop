@@ -394,4 +394,7 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Run `choco install packagewithparameters -s internal_chocolatey --params "'/LICENSE:Yes'"` and note the output.
 
 ### Exercise 22: Use AutoHotKey for craptastic installers
+
+Craptastic is a technical term ;).
+
 COMING SOON.
