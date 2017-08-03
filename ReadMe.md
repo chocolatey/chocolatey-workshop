@@ -197,6 +197,13 @@ Let's start by packaging up and installing Puppet
 1. Run `choco list -lo --include-programs`. Note if 1password package is still there.
 1. Look for a lib-synced folder in `C:\ProgramData\Chocolatey`.
 1. Note the contents.
+1. You may need to reset some features due to running unlicensed Chocolatey. Run the following commands:
+   ~~~sh
+   choco feature enable -n virusCheck
+   choco feature enable -n allowPreviewFeatures
+   choco feature enable -n internalizeAppendUseOriginalLocation
+   choco feature enable -n reduceInstalledPackageSpaceUsage
+   ~~~
 
 ### Exercise 13: Package Synchronizer - Choco Sync (C4B)
 1. Go to `C:\ProgramData\chocolatey\.chocolatey` and delete the 7zip folder if it exists. Otherwise delete the 1password folder (these folders will have a version after them).
