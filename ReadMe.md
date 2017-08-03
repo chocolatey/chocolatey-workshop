@@ -13,11 +13,12 @@
 
 * Package - in Chocolatey-speak, package is strictly a Nupkg file. Binaries and installers are referred to as software or binaries. This reduces confusion.
 * C4B - you see this next to some exercises. This is the short form of Chocolatey for Business.
+* MSP - Managed Service Provider. Also a licensed edition of Chocolatey that has less features and suport than C4B, but has a price point that works well for MSP organizations.
 
 ## Exercises
 Some of these exercises require a license for the commercial version of Chocolatey. They can be completed with a trial version, but may require pressing enter a few times (and repeating the command if the trial decides not to let Package Builder finish).
 
-If you are completing this lab for FOSS (open source), simply skip those steps that are indicated by either `C4B`, `MSP`, or `Licensed`.
+If you are completing this lab for FOSS (open source), simply skip those exercises/steps that are indicated by either `C4B`, `MSP`, or `Licensed`.
 
 ### Exercise 0: Setup
 
@@ -36,16 +37,16 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
 
 All the rest of these commands will be done inside the Vagrant box (or box you are using for this workshop).
 
- 1. C4B: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
- 1. Install the licensed edition of Chocolatey - C4B (Chocolatey for Business):
-   * Type `choco install chocolatey.extension -y -s c:\vagrant\packages`
-   * If you get curious, check out `choco source list`.
  1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`
+ 1. Licensed: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
+ 1. Licensed: Install the licensed edition of Chocolatey:
+   * Type `choco install chocolatey.extension -y`
+   * If you get curious, check out `choco source list`.
  1. Run the following commands:
    ~~~sh
    choco config set cacheLocation c:\programdata\choco-cache
    ~~~
-1. C4B: Run the following commands:
+ 1. C4B: Run the following commands:
    ~~~sh
    choco config set virusScannerType VirusTotal
    choco feature enable -n virusCheck
@@ -59,14 +60,13 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
  1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
  1. Open the profile file and add the following content:
-
     ~~~powershell
     $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
     if (Test-Path($ChocolateyProfile)) {
       Import-Module "$ChocolateyProfile"
     }
     ~~~
- 1. Create a folder for packages if it doesn't already exist at c:\packages - `New-Item 'c:\packages' -ItemType 'Directory'`
+ 1. Create a folder for packages if it doesn't already exist at "c:\packages" - `New-Item 'c:\packages' -ItemType 'Directory'`
  1. Navigate to the packages folder. All commands from here will be in that packages folder.
 
 ### Exercise 1: Install Visual Studio Code
