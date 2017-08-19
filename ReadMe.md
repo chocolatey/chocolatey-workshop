@@ -13,7 +13,7 @@ In this workshop, you will learn both simple and advanced scenarios for Chocolat
 * Reporting
 * Advanced packaging techniques when installers are not friendly to automation
 
-You can complete this workshop with either Chocolatey open source (FOSS) or with Chocolatey for Business (C4B). There are sections that specifically apply to C4B. You can skip those sections if they don't apply (or [set up a trial](https://chocolatey.org/contact) (contact sales) to take a closer look if you find those sections helpful).
+You can complete this workshop with either Chocolatey open source (FOSS) or with Chocolatey for Business (C4B). There are sections that specifically apply to C4B. You can skip those sections if they don't apply (or [set up a trial](https://chocolatey.org/contact) - contact sales to take a closer look).
 
 ## Terminology
 
