@@ -1,19 +1,36 @@
 # Workshop on Chocolatey
 
-## Agenda
+## Summary
+In this workshop, you will learn both simple and advanced scenarios for Chocolatey. You will see that Chocolatey can manage anything software-related when it comes to Windows. Here are some of the things you will learn in this workshop:
 
-* Welcome / Introductions
-* Introduction to Chocolatey
-* Introduction to Chocolatey for Business
-* Exercises 0 - 6 (Setup and Package Creation)
-* Review
-* Rest of Exercises
+* General packaging
+* General Chocolatey use
+* General packaging
+* Customizing package behavior at runtime (package parameters)
+* Extension packages
+* Custom packaging templates
+* Setting up an internal Chocolatey.Server repository
+* Adding and using internal repositories
+* Reporting
+* Advanced packaging techniques when installers are not friendly to automation
+
+You can complete this workshop with either Chocolatey open source (FOSS) or with Chocolatey for Business (C4B). There are sections that specifically apply to C4B, so just skip those sections.
 
 ## Terminology
 
 * Package - in Chocolatey-speak, package is strictly a Nupkg file. Binaries and installers are referred to as software or binaries. This reduces confusion.
 * C4B - you see this next to some exercises. This is the short form of Chocolatey for Business.
 * MSP - Managed Service Provider. Also a licensed edition of Chocolatey that has less features and suport than C4B, but has a price point that works well for MSP organizations.
+
+## Types of Packages
+
+* Installer Package - contains an installer (everything in template is geared towards this type of package)
+* Zip Package - downloads or embeds and unpacks archives, may unpack and run an installer using `Install-ChocolateyInstallPackage` as a secondary step.
+* Portable Package - Contains runtime binaries (or unpacks them as a zip package) - cannot require administrative permissions to install or use
+* Config Package - sets config like files, registry keys, etc
+* Extension Package - Packages that add PowerShell functions to Chocolatey - https://chocolatey.org/docs/how-to-create-extensions
+* Template Package - Packages that add templates like this for `choco new -t=name` - https://chocolatey.org/docs/how-to-create-custom-package-templates
+* Other - there are other types of packages as well, these are the main package types seen in the wild
 
 ## Exercises
 Some of these exercises require a license for the commercial version of Chocolatey. They can be completed with a trial version, but may require pressing enter a few times (and repeating the command if the trial decides not to let Package Builder finish).
@@ -43,17 +60,17 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
    * Type `choco install chocolatey.extension -y`
    * If you get curious, check out `choco source list`.
  1. Run the following commands:
-   ~~~sh
-   choco config set cacheLocation c:\programdata\choco-cache
-   ~~~
+    ~~~sh
+    choco config set cacheLocation c:\programdata\choco-cache
+     ~~~
  1. C4B: Run the following commands:
-   ~~~sh
-   choco config set virusScannerType VirusTotal
-   choco feature enable -n virusCheck
-   choco feature enable -n allowPreviewFeatures
-   choco feature enable -n internalizeAppendUseOriginalLocation
-   choco feature enable -n reduceInstalledPackageSpaceUsage
-   ~~~
+    ~~~sh
+    choco config set virusScannerType VirusTotal
+    choco feature enable -n virusCheck
+    choco feature enable -n allowPreviewFeatures
+    choco feature enable -n internalizeAppendUseOriginalLocation
+    choco feature enable -n reduceInstalledPackageSpaceUsage
+    ~~~
  1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
  1. OPTIONAL: Run `vagrant reload` to reboot the machine.
  1. Install the latest GUI - `choco install chocolateygui --source="'local;https://www.myget.org/F/chocolateygui/'" --pre -y --ignore-dependencies` - this may error.
@@ -216,7 +233,19 @@ Let's start by packaging up and installing Puppet
 1. Run `choco list -lo --include-programs`.
 1. Note any applications not being managed as Chocolatey packages.
 
-### Exercise 14: Internalize AdobeReader package (MSP/C4B)
+### Exercise 14: Manually Internalize Notepad++ package
+1. Follow the instructions at [internalize an existing package manually](https://chocolatey.org/docs/how-to-recompile-packages#how-to-internalizerecompile-an-existing-package-manually) to internalize Notepad++.
+
+### Exercise 15: Internalize Notepad++ package (MSP/C4B)
+1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
+1. Call `choco download notepadplusplus --internalize --resources-location http://somewhere/internal` (literally).
+1. While it is downloading, head into the download folder it created.
+1. Open the `tools\chocolateyInstall.ps1` in Notepad++ or Code.
+1. Note the url variable.
+1. When it finishes downloading and creating the package, note how that changes.
+1. Note how it appended `UseOriginalLocation` in this case.
+
+### Exercise 16: Internalize AdobeReader package (MSP/C4B)
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
 1. Call `choco download adobereader --internalize`.
 1. While it is downloading, head into the download folder it created.
@@ -228,18 +257,7 @@ Let's start by packaging up and installing Puppet
 
 **NOTE:** You can also complete this exercise with Chocolatey FOSS by manually internalizing the package, see [manually internalizing packages](https://chocolatey.org/docs/how-to-recompile-packages) for more information.
 
-### Exercise 15: Internalize Notepad++ package (MSP/C4B)
-1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
-1. Call `choco download notepadplusplus --internalize --resources-location http://somewhere/internal` (literally).
-1. While it is downloading, head into the download folder it created.
-1. Open the `tools\chocolateyInstall.ps1` in Notepad++ or Code.
-1. Note the url variable.
-1. When it finishes downloading and creating the package, note how that changes.
-1. Note how it appended `UseOriginalLocation` in this case.
-
-**NOTE:** You can also complete this exercise with Chocolatey FOSS by manually internalizing the package, see [manually internalizing packages](https://chocolatey.org/docs/how-to-recompile-packages) for more information.
-
-### Exercise 16: Download Chocolatey and Licensed packages (Licensed)
+### Exercise 17: Download Chocolatey and Licensed packages (Licensed)
 To have a completely offline install for packaging, you need to remove
 
 1. Run `choco source list` to see your sources.
@@ -252,7 +270,7 @@ To have a completely offline install for packaging, you need to remove
 1. Push all of these packages to your internal server.
 1. You are now using Chocolatey with internal only packages.
 
-### Exercise 17: Create an extension package
+### Exercise 18: Create an extension package
 We are going to create a package that checks for prerequisites prior to the install, such as ensuring at least 1 GB of free space.
 
 1. Run `choco new prerequisites.extension`
@@ -260,7 +278,6 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Create an `extensions` directory.
 1. Create a file called `prerequisites.psm1` in the extensions directory.
 1. Add this to the contents:
-
     ~~~powershell
     # Export functions that start with capital letter, others are private
     # Include file names that start with capital letters, ignore others
@@ -273,7 +290,6 @@ We are going to create a package that checks for prerequisites prior to the inst
     $funcs | ? { $_ -cmatch '^[A-Z]+'} | % { Export-ModuleMember -Function $_ }
     ~~~
 1. Create a file `Ensure-ThreeGBs.ps1` and add the following contents:
-
     ~~~powershell
     <#
       .SYNOPSIS
@@ -303,7 +319,6 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Now head into the 1Password package from exercise and open `tools\chocolateyInstall.ps1`.
 1. On line 1, add the following: `Ensure-ThreeGBs`. Save and close.
 1. Open up `1password.nuspec` and add a dependency on the prerequisites.extension package (right before `</metadata>`):
-
     ~~~xml
     <dependencies>
       <dependency id="prerequisites.extension" version="0.0.1" />
@@ -313,11 +328,12 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Run `choco install 1password -s . -y`. **NOTE**: We uninstalled this with auto sync in an earlier exercise.
 1. Note in the install how it automatically loads up the prerequisites functions and makes them available without any more work on the part of the installation scripts.
 
-### Exercise 18: Create a package template for MSIs
+**NOTE**: Learn more at https://chocolatey.org/docs/how-to-create-extensions.
+
+### Exercise 19: Create a package template for MSIs
 1. Run `choco new msi.template`.
 1. Delete the `msi.template\tools` directory.
 1. Create `templates\msi.nuspec.template` and add the following contents:
-
     ~~~powershell
     <?xml version="1.0" encoding="utf-8"?>
     <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
@@ -341,7 +357,6 @@ We are going to create a package that checks for prerequisites prior to the inst
     </package>
     ~~~
 1. Create `templates\tools\chocolateyInstall.ps1` and add the following contents:
-
     ~~~powershell
     $ErrorActionPreference = 'Stop';
     $packageName= '[[PackageName]]'
@@ -366,12 +381,14 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Now we can push this up to our package server.
 1. Let's install this template - `choco install msi.template -s internal_chocolatey`.
 
-### Exercise 19: Create a package from a template
+**NOTE:** Learn more at https://chocolatey.org/docs/how-to-create-custom-package-templates.
+
+### Exercise 20: Create a package from a template
 1. Run `choco new bob -t msi`.
 1. Head into the bob folder.
 1. Note how it does replacements of all of the `[[variables]]`
 
-### Exercise 20: Update a packaging template / use custom properties
+### Exercise 21: Update a packaging template / use custom properties
 1. Let's add a new variable.
 1. Open `msi.template\templates\tools\chocolateyInstall.ps1`
 1. Add the following at the top: `# [[CustomVariable]]`
@@ -382,12 +399,11 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Now run `choco new tim -t msi CustomVariable="Yes"`
 1. Note the output in the tim folder that is created.
 
-### Exercise 21: Use package parameters
+### Exercise 22: Use package parameters
 1. Run `choco new packagewithparameters`
 1. Remove everything but the nuspec and `tools\chocolateyInstall.ps1`.
 1. In the nuspec, take a dependency on `chocolatey-core.extension` version `[1,3)` (which means at least v1, but anything less than v3).
 1. In the `chocolateyInstall.ps1`, delete everything and just add the following:
-
     ~~~powershell
     $pp = Get-PackageParameters
 
@@ -400,8 +416,10 @@ We are going to create a package that checks for prerequisites prior to the inst
 1. Ensure the chocolatey-core.extension package is up on the internal server as well.
 1. Run `choco install packagewithparameters -s internal_chocolatey --params "'/LICENSE:Yes'"` and note the output.
 
-### Exercise 22: Use AutoHotKey for craptastic installers
+**NOTE**: Learn more at https://chocolatey.org/docs/how-to-parse-package-parameters-argument.
 
-Craptastic is a technical term ;).
+### Exercise 23: Use AutoHotKey for craptastic installers
 
-COMING SOON.
+**NOTE**: Craptastic is a technical term ;).
+
+1. COMING SOON.
