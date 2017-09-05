@@ -55,6 +55,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
 
  1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`
  1. Licensed: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
+ 1. If you have a trial license, put the `chocolatey.extension` package into the packages folder.
  1. Licensed: Install the licensed edition of Chocolatey:
    * Type `choco install chocolatey.extension -y`
    * If you get curious, check out `choco source list`.
