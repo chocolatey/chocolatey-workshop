@@ -47,6 +47,7 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
  1. OFFLINE WORKSHOP: If we've had you copy files for offline use of this workshop, copy the packages folder into the `demo/packages` folder. Also copy files from the `downloads` folder to `resources/installers`.
  1. OFFLINE: Go to `shell/InstallChocolatey.ps1` and set `$installLocalFile = $true` on line 1.
  1. C4B: Place the license you received (by email or fileshare) in `demo/resources/licenses`. Make sure it is named `chocolatey.license.xml`.
+ 1. C4B TRIAL: If you have a trial license, put the `chocolatey.extension` package into the packages folder.
  1. Run `vagrant up` (or `vagrant provision` if already running).
 
 #### In the VM / physical system for work shop completion
@@ -55,9 +56,8 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
 
  1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`
  1. Licensed: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
- 1. If you have a trial license, put the `chocolatey.extension` package into the packages folder.
  1. Licensed: Install the licensed edition of Chocolatey:
-   * Type `choco install chocolatey.extension -y`
+   * Type `choco install chocolatey.extension -y` (ensure you added the nupkg for the packages folder if running a trial)
    * If you get curious, check out `choco source list`.
  1. Run the following commands:
     ~~~sh
@@ -72,7 +72,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
     choco feature enable -n reduceInstalledPackageSpaceUsage
     ~~~
  1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
- 1. OPTIONAL: Run `vagrant reload` to reboot the machine.
+ 1. Run `vagrant reload` to reboot the machine.
  1. Install the latest GUI - `choco install chocolateygui --source="'local;https://www.myget.org/F/chocolateygui/'" --pre -y --ignore-dependencies` - this may error.
  1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
