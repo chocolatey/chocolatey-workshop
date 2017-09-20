@@ -50,7 +50,7 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
  1. C4B TRIAL: If you have a trial license, put the `chocolatey.extension` package into the packages folder.
  1. Run `vagrant up` (or `vagrant provision` if already running).
 
-#### In the VM / physical system for work shop completion
+#### In the VM / physical system for workshop completion
 
 All the rest of these commands will be done inside the Vagrant box (or box you are using for this workshop).
 
