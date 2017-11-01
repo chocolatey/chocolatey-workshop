@@ -36,15 +36,20 @@ Some of these exercises require a license for the commercial version of Chocolat
 
 If you are completing this lab for FOSS (open source), simply skip those exercises/steps that are indicated by either `C4B`, `MSP`, or `Licensed`.
 
+### Notes
+
+* OFFLINE - Offline workshop typically means you are attending the workshop in person somewhere
+* PHYSICAL - using a physical machine instead of the provided VM.
+
 ### Exercise 0: Setup
 
-It's preferred that you perform all of this exercise from a Vagrant image, but you can follow along with a physical Windows box. With Vagrant, you will need either VirtualBox or Hyper-V for the box provider.
+It's preferred that you perform all of this exercise from a Vagrant image, but you can follow along with a physical Windows box. With Vagrant, you will need either VirtualBox, VMWare Fusion, or Hyper-V for the box provider.
 
 #### Vagrant Setup
- 1. Ensure you have a recent version of [Vagrant](https://downloads.vagrantup.com). It is suggested you have at least 1.8.x for linked clones which makes Windows VMs come up lightning quick. Windows machine - `choco install vagrant -y` (then `refreshenv`). OFFLINE: You should find this in the chocolatey-workshop/setup folder.
+ 1. Ensure you have a recent version of [Vagrant](https://downloads.vagrantup.com). It is suggested you have at least 1.8.x for linked clones which makes Windows VMs come up lightning quick. Windows machine - `choco install vagrant -y` (then `refreshenv`). OFFLINE: You should find this in the chocolatey-workshop/setup folder that was provided in the USB key.
  1. Pre-download the vagrant box we will be using - `vagrant init ferventcoder/win2012r2-x64-nocm` (this is a 4GB box, about 8GB unpacked). OFFLINE: You should find this in the vagrant_boxes folder that was copied to your system.
  1. VirtualBox - If you are completing the workshop with VirtualBox, ensure you have VirtualBox 5 or 5.1 installed. Windows install is `choco install virtualbox -y`. OFFLINE: You should find this in the chocolatey-workshop/setup folder.
- 1. OFFLINE WORKSHOP: If we've had you copy files for offline use of this workshop, copy the packages folder into the `demo/packages` folder. Also copy files from the `downloads` folder to `resources/installers`.
+ 1. OFFLINE WORKSHOP: If we've had you copy files for offline use of this workshop, copy the packages folder into the `demo/packages` () folder. Also copy files from the `downloads` folder to `resources/installers`.
  1. OFFLINE: Go to `shell/InstallChocolatey.ps1` and set `$installLocalFile = $true` on line 1.
  1. C4B: Place the license you received (by email or fileshare) in `demo/resources/licenses`. Make sure it is named `chocolatey.license.xml`. OFFLINE: This should already be placed, but ensure that it is there.
  1. C4B TRIAL: If you have a trial license, put the `chocolatey.extension` package into the packages folder.
@@ -54,7 +59,7 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
 
 All the rest of these commands will be done inside the Vagrant box (or box you are using for this workshop).
 
- 1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`
+ 1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`. PHYSICAL: This is likely to be `choco source add -n local -s c:\<directories>\chocolatey-workshop\demo\packages --priority 1`.
  1. Licensed: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
  1. Licensed: Install the licensed edition of Chocolatey:
    * Type `choco install chocolatey.extension -y` (ensure you added the nupkg for the packages folder if running a trial)
@@ -74,7 +79,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
  1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
  1. Run `vagrant reload` to reboot the machine.
  1. Install the latest GUI - `choco install chocolateygui --source="'local;https://www.myget.org/F/chocolateygui/'" --pre -y --ignore-dependencies` - this may error with 1603 if you have not rebooted the machine after installing .NET Framework 4.5.2.
- 1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`
+ 1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`.
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
  1. Open the profile file and add the following content:
     ~~~powershell
@@ -240,7 +245,7 @@ Let's start by packaging up and installing Puppet
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
 1. Call `choco download notepadplusplus --internalize --resources-location http://somewhere/internal` (literally).
 1. While it is downloading, head into the download folder it created.
-1. Open the `tools\chocolateyInstall.ps1` in Notepad++ or Code.
+1. Open the `download\notepadplusplus.install\tools\chocolateyInstall.ps1` (relative to the current working directory) in Notepad++ or Code.
 1. Note the url variable.
 1. When it finishes downloading and creating the package, note how that changes.
 1. Note how it appended `UseOriginalLocation` in this case.
