@@ -77,7 +77,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
     choco feature enable -n reduceInstalledPackageSpaceUsage
     ~~~
  1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
- 1. Run `vagrant reload` to reboot the machine.
+ 1. (***HOST***) Run `vagrant reload` to reboot the machine. Okay, there are a few commands you might run from the host machine, typically those are vagrant commands. ***PHYSICAL***: Restart your machine
  1. Install the latest GUI - `choco install chocolateygui --source="'local;https://www.myget.org/F/chocolateygui/'" --pre -y --ignore-dependencies` - this may error with 1603 if you have not rebooted the machine after installing .NET Framework 4.5.2.
  1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`.
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
@@ -175,6 +175,13 @@ Let's start by packaging up and installing Puppet
 1. Look at package folders that didn't generate a nupkg.
 
 ### Exercise 7: Set up a local Chocolatey.Server
+1. ***HOST***: Start with `vagrant reload` to clear pending reboots.
+1. Install KB2919355 - `choco install KB2919355 -y` - this one or the other Windows update takes a ***very*** long time to install, just be patient and let it complete.
+1. ***HOST***: Run `vagrant reload`.
+1. Install KB2919355 - `choco install KB2919355 -y` (note this may take a long time to install)
+1. ***HOST***: Run `vagrant reload`. Yes, we know. Windows, whaddayado?
+1. Run `choco install dotnet4.6.1 -y`
+1. ***HOST***: You guessed it, one more time - `vagrant reload`
 1. Ensure IIS and Asp.NET are installed
     * `choco install IIS-WebServer -y --source windowsfeatures`
     * `choco install IIS-ASPNET45 -y --source windowsfeatures`
@@ -182,6 +189,8 @@ Let's start by packaging up and installing Puppet
 1. Follow instructions at https://chocolatey.org/docs/how-to-set-up-chocolatey-server
 1. Go to http://localhost, verify the setup, look at the password.
 1. Add this repository to your default sources. Call it `internal_chocolatey` - try `choco source -?` to learn how. Ensure `http://localhost/chocolatey` is the source location you use.
+
+We are moving towards updating the base image to speed this bit up so that there is not the waiting around on it.
 
 ### Exercise 8: Push a package to a Chocolatey Server
 1. Run `choco search -s http://localhost/chocolatey`
