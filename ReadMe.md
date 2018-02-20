@@ -1,5 +1,46 @@
 # Workshop on Chocolatey
 
+<!-- TOC -->
+
+- [Summary](#summary)
+- [Requirements](#requirements)
+- [Terminology](#terminology)
+- [Types of Packages](#types-of-packages)
+- [Exercises](#exercises)
+  - [Notes](#notes)
+  - [Exercise 0: Setup](#exercise-0-setup)
+    - [Vagrant Setup](#vagrant-setup)
+    - [In the VM / physical system for workshop completion](#in-the-vm--physical-system-for-workshop-completion)
+  - [Exercise 1: Install Visual Studio Code](#exercise-1-install-visual-studio-code)
+  - [Exercise 2: Create a package the old fashioned way](#exercise-2-create-a-package-the-old-fashioned-way)
+  - [Exercise 3: Create a package with Package Builder CLI (C4B)](#exercise-3-create-a-package-with-package-builder-cli-c4b)
+  - [Exercise 4: Create a package with Package Builder UI (C4B)](#exercise-4-create-a-package-with-package-builder-ui-c4b)
+  - [Exercise 5: Create a package with Package Builder (Right Click) (C4B)](#exercise-5-create-a-package-with-package-builder-right-click-c4b)
+    - [1Password](#1password)
+    - [Charles Proxy](#charles-proxy)
+    - [7-Zip](#7-zip)
+  - [Exercise 6: Create all the packages (C4B)](#exercise-6-create-all-the-packages-c4b)
+  - [Exercise 7: Set up a local Chocolatey.Server](#exercise-7-set-up-a-local-chocolateyserver)
+  - [Exercise 8: Push a package to a Chocolatey Server](#exercise-8-push-a-package-to-a-chocolatey-server)
+  - [Exercise 9: Upgrade a package](#exercise-9-upgrade-a-package)
+  - [Exercise 10: Install package from Internal Repository](#exercise-10-install-package-from-internal-repository)
+  - [Exercise 11: Reporting](#exercise-11-reporting)
+  - [Exercise 12: Package Synchronizer - Automatic Sync (Licensed)](#exercise-12-package-synchronizer---automatic-sync-licensed)
+  - [Exercise 13: Package Synchronizer - Choco Sync (C4B)](#exercise-13-package-synchronizer---choco-sync-c4b)
+  - [Exercise 14: Manually Internalize Notepad++ package](#exercise-14-manually-internalize-notepad-package)
+  - [Exercise 15: Internalize Notepad++ package (MSP/C4B)](#exercise-15-internalize-notepad-package-mspc4b)
+  - [Exercise 16: Internalize AdobeReader package (MSP/C4B)](#exercise-16-internalize-adobereader-package-mspc4b)
+  - [Exercise 17: Download Chocolatey and Licensed packages (Licensed)](#exercise-17-download-chocolatey-and-licensed-packages-licensed)
+  - [Exercise 18: Create an extension package](#exercise-18-create-an-extension-package)
+  - [Exercise 19: Create a package template for MSIs](#exercise-19-create-a-package-template-for-msis)
+  - [Exercise 20: Create a package from a template](#exercise-20-create-a-package-from-a-template)
+  - [Exercise 21: Update a packaging template / use custom properties](#exercise-21-update-a-packaging-template--use-custom-properties)
+  - [Exercise 22: Use package parameters](#exercise-22-use-package-parameters)
+  - [Exercise 23: Use AutoHotKey for craptastic installers](#exercise-23-use-autohotkey-for-craptastic-installers)
+
+<!-- /TOC -->
+
+
 ## Summary
 In this workshop, you will learn both simple and advanced scenarios for Chocolatey. You will see that Chocolatey can manage anything software-related when it comes to Windows. Here are some of the things you will learn in this workshop:
 
@@ -15,11 +56,19 @@ In this workshop, you will learn both simple and advanced scenarios for Chocolat
 
 You can complete this workshop with either Chocolatey open source (FOSS) or with Chocolatey for Business (C4B). There are sections that specifically apply to C4B. You can skip those sections if they don't apply (or [set up a trial](https://chocolatey.org/contact) - contact sales to take a closer look).
 
+## Requirements
+
+* A Windows or macOS machine.
+* At least 40GB of free space.
+* Recommend 8GB+ of RAM, or as much as possible.
+* NOT IN PERSON WORKSHOP: A decent internet connection as you will need to download a 4GB image. If you are completing this workshop in person with the Chocolatey team, it's likely you are completing an offline workshop. Otherwise you are going to need internet to download everything.
+
 ## Terminology
 
 * Package - in Chocolatey-speak, package is strictly a Nupkg file. Binaries and installers are referred to as software or binaries. This reduces confusion.
 * C4B - you see this next to some exercises. This is the short form of Chocolatey for Business.
 * MSP - Managed Service Provider. Also a licensed edition of Chocolatey that has less features and suport than C4B, but has a price point that works well for MSP organizations.
+* See [Notes](#notes)
 
 ## Types of Packages
 
@@ -38,7 +87,7 @@ If you are completing this lab for FOSS (open source), simply skip those exercis
 
 ### Notes
 
-* OFFLINE - Offline workshop typically means you are attending the workshop in person somewhere
+* OFFLINE - Offline workshop typically means you are attending the workshop in person somewhere and all materials will be provided so you don't need to download anything.
 * PHYSICAL - using a physical machine instead of the provided VM.
 
 ### Exercise 0: Setup
