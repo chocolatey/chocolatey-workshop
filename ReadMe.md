@@ -61,6 +61,7 @@ You can complete this workshop with either Chocolatey open source (FOSS) or with
 * A Windows or macOS machine.
 * At least 40GB of free space.
 * Recommend 8GB+ of RAM, or as much as possible.
+* IN PERSON WORKSHOP: Will need to be able to accept a USB key to transfer setup files.
 * NOT IN PERSON WORKSHOP: A decent internet connection as you will need to download a 4GB image. If you are completing this workshop in person with the Chocolatey team, it's likely you are completing an offline workshop. Otherwise you are going to need internet to download everything.
 
 ## Terminology
