@@ -40,7 +40,6 @@
 
 <!-- /TOC -->
 
-
 ## Summary
 In this workshop, you will learn both simple and advanced scenarios for Chocolatey. You will see that Chocolatey can manage anything software-related when it comes to Windows. Here are some of the things you will learn in this workshop:
 
