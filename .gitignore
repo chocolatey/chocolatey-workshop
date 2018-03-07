@@ -6,4 +6,6 @@ demo/resources/installers
 demo/resources/packages
 demo/resources/NetFx4
 demo/packages
-setup/
+*.exe
+*.msi
+*.nupkg
