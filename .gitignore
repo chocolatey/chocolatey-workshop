@@ -10,3 +10,4 @@ demo/packages
 *.msi
 *.nupkg
 *.dmg
+vagrant*SHA256SUMS
