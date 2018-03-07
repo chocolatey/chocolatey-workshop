@@ -18,7 +18,8 @@
   - [Exercise 5: Create a package with Package Builder (Right Click) (C4B)](#exercise-5-create-a-package-with-package-builder-right-click-c4b)
     - [1Password](#1password)
     - [Charles Proxy](#charles-proxy)
-    - [7-Zip](#7-zip)
+    - [7-Zip EXE](#7-zip-exe)
+    - [7-Zip MSI](#7-zip-msi)
   - [Exercise 6: Create all the packages (C4B)](#exercise-6-create-all-the-packages-c4b)
   - [Exercise 7: Set up a local Chocolatey.Server](#exercise-7-set-up-a-local-chocolateyserver)
   - [Exercise 8: Push a package to a Chocolatey Server](#exercise-8-push-a-package-to-a-chocolatey-server)
@@ -28,7 +29,7 @@
   - [Exercise 12: Package Synchronizer - Automatic Sync (Licensed)](#exercise-12-package-synchronizer---automatic-sync-licensed)
   - [Exercise 13: Package Synchronizer - Choco Sync (C4B)](#exercise-13-package-synchronizer---choco-sync-c4b)
   - [Exercise 14: Manually Internalize Notepad++ package](#exercise-14-manually-internalize-notepad-package)
-  - [Exercise 15: Internalize Notepad++ package (MSP/C4B)](#exercise-15-internalize-notepad-package-mspc4b)
+  - [Exercise 15: Internalize Visual Studio Code package (MSP/C4B)](#exercise-15-internalize-visual-studio-code-package-mspc4b)
   - [Exercise 16: Internalize AdobeReader package (MSP/C4B)](#exercise-16-internalize-adobereader-package-mspc4b)
   - [Exercise 17: Download Chocolatey and Licensed packages (Licensed)](#exercise-17-download-chocolatey-and-licensed-packages-licensed)
   - [Exercise 18: Create an extension package](#exercise-18-create-an-extension-package)
@@ -109,6 +110,7 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
 All the rest of these commands will be done inside the Vagrant box (or box you are using for this workshop).
 
  1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`. PHYSICAL: This is likely to be `choco source add -n local -s c:\<directories>\chocolatey-workshop\demo\packages --priority 1`.
+ 1. OFFLINE: Run the following: `choco source disable -n chocolatey`
  1. Licensed: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
  1. Licensed: Install the licensed edition of Chocolatey:
    * Type `choco install chocolatey.extension -y` (ensure you added the nupkg for the packages folder if running a trial)
@@ -201,12 +203,21 @@ Let's start by packaging up and installing Puppet
 1. Inspect the output.
 1. Install this package with `choco install charles -s . -y` (from the working directory where the nupkg is located)
 
-#### 7-Zip
-1. Download 7zip - http://www.7-zip.org/download.html (just the 64bit version) OR OFFLINE: Find the file in `resources/installers` folder.
+#### 7-Zip EXE
+1. Download 7zip (EXE version) - http://www.7-zip.org/download.html (just the 64bit version) OR OFFLINE: Find the file in `resources/installers` folder.
 1. Right click and choose "Create Chocolatey Package..."
 1. Click Generate.
-1. Inspect the output. Note that it doesn't necessarily figure out the silent arguments.
+1. Inspect the output.
+1. Open the TODO file that is generated and read over it.
+1. Note that it doesn't necessarily figure out the silent arguments.
 1. Add the proper silent arguments in the install script.
+1. Right click on the 7zip nuspec and select "Compile Chocolatey Package..."
+
+#### 7-Zip MSI
+1. Download 7zip (MSI version) - http://www.7-zip.org/download.html (just the 64bit version) OR OFFLINE: Find the file in `resources/installers` folder.
+1. Right click and choose "Create Chocolatey Package..."
+1. Click Generate.
+1. Inspect the output. Note that it determines everything nicely.
 1. Right click on the 7zip nuspec and select "Compile Chocolatey Package..."
 
 ### Exercise 6: Create all the packages (C4B)
@@ -244,12 +255,13 @@ We are moving towards updating the base image to speed this bit up so that there
 ### Exercise 8: Push a package to a Chocolatey Server
 1. Run `choco search -s http://localhost/chocolatey`
 1. In the folder where we've generated packages, let's find 1Password nupkg.
-1. Run `choco push -s http://localhost -k chocolateyrocks` (note the push is different than the query url).
+1. Run `ls` to verify that there is a 1Password nupkg in the directory. If not, you need to navigate to that folder.
+1. Run `choco push -s http://localhost -k chocolateyrocks` (note the push is different than the query url) - we only need to specify path to the nupkg if there is more than one in the current directory.
 1. Run `choco search -s http://localhost/chocolatey`. Run `choco search -s internal_chocolatey` and note the output should be the same.
 1. Note that the package is available.
 
 ### Exercise 9: Upgrade a package
-1. Download an updated 1Password from this link - https://d13itkw33a7sus.cloudfront.net/dist/1P/win4/1Password-4.6.1.617.exe
+1. Download an updated 1Password from this link - https://d13itkw33a7sus.cloudfront.net/dist/1P/win4/1Password-4.6.1.617.exe  OR OFFLINE: Find the file in `resources/installers` folder.
 1. Use any method for creating packages to generate the packaging for this upgrade. **NOTE**: When you do this, you may need to rename the existing 1Password package folder first.
 1. Instead of using Package Builder, you can instead download the file into the tools directory of the current package, edit the nuspec version, delete the previous installer exe, and update the chocolateyInstall.ps1 to point to the new installer and then compile the package.
 1. Push this updated package to the Chocolatey server.
@@ -299,18 +311,18 @@ We are moving towards updating the base image to speed this bit up so that there
 ### Exercise 14: Manually Internalize Notepad++ package
 1. Follow the instructions at [internalize an existing package manually](https://chocolatey.org/docs/how-to-recompile-packages#how-to-internalizerecompile-an-existing-package-manually) to internalize Notepad++.
 
-### Exercise 15: Internalize Notepad++ package (MSP/C4B)
+### Exercise 15: Internalize Visual Studio Code package (MSP/C4B)
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
-1. Call `choco download notepadplusplus --internalize --resources-location http://somewhere/internal` (literally).
+1. Call `choco download visualstudiocode --internalize --resources-location http://somewhere/internal  -s https://chocolatey.org/api/v2/` (literally). You only need to specify source if you've disabled the community repository source.
 1. While it is downloading, head into the download folder it created.
-1. Open the `download\notepadplusplus.install\tools\chocolateyInstall.ps1` (relative to the current working directory) in Notepad++ or Code.
+1. Open the `download\visualstudiocode\tools\chocolateyInstall.ps1` (relative to the current working directory) in Notepad++ or Code.
 1. Note the url variable.
 1. When it finishes downloading and creating the package, note how that changes.
 1. Note how it appended `UseOriginalLocation` in this case.
 
 ### Exercise 16: Internalize AdobeReader package (MSP/C4B)
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
-1. Call `choco download adobereader --internalize`.
+1. Call `choco download adobereader --internalize -s https://chocolatey.org/api/v2/` (you only need the source if you've disabled the community repo source)
 1. While it is downloading, head into the download folder it created.
 1. Open the chocolateyInstall.ps1 in Notepad++ or Code.
 1. Note the url variable.
