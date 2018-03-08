@@ -64,7 +64,7 @@ Vagrant.configure('2') do |config|
   config.winrm.password = "vagrant"
 
   # open up forwarded ports from the guest system to the host.
-  config.vm.network :forwarded_port, guest: 5985, host: 5985, id: 'winrm', auto_correct: true
+  config.vm.network :forwarded_port, guest: 5985, host: 55985, id: 'winrm', auto_correct: true
   config.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
   config.vm.network :forwarded_port, guest: 80, host: 8090, id: 'web', auto_correct: true
 
