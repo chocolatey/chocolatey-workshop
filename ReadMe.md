@@ -121,7 +121,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
    * If you get curious, check out `choco source list`.
  1. Run the following commands:
     ~~~sh
-    choco config set cacheLocation c:\programdata\choco-cache
+    choco config set cacheLocation 'c:\programdata\choco-cache'
      ~~~
  1. C4B: Run the following commands:
     ~~~sh
