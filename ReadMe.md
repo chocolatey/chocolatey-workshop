@@ -104,6 +104,7 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
  1. C4B: Place the license you received (by email or fileshare) in `demo/resources/licenses`. Make sure it is named `chocolatey.license.xml`. OFFLINE: This should already be placed, but ensure that it is there.
  1. C4B TRIAL: If you have a trial license, put the `chocolatey.extension` package into the packages folder.
  1. In your command shell, make sure you are in the `demo` subfolder here. Run `vagrant up` (or `vagrant provision` if already running).
+ 1. Check for errors. Once it finishes, run `vagrant reload` to get copy paste working. Something in Virtualbox/vagrant doesn't apparently set things up properly on first provision.
 
 **Troubleshooting:** If you run into a UUID issue, you may want to vagrant destroy, then find the `.vagrant` folder in the demo folder or a folder just above and remove that.
 
