@@ -136,13 +136,15 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
  1. Install the latest GUI - `choco install chocolateygui --pre -y` - this may error with 1603 if you have not rebooted the machine after installing .NET Framework 4.5.2.
  1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`.
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
- 1. Open the profile file and add the following content:
+ 1. Type `Write-Host $profile`.
+ 1. Use the location of that file to navigate in Windows Explorer and open the file in an editor. Add the following content, then save and close the file:
     ~~~powershell
     $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
     if (Test-Path($ChocolateyProfile)) {
       Import-Module "$ChocolateyProfile"
     }
     ~~~
+ 1. Type `. $profile` to reload the PowerShell profile.
  1. Create a folder for packages if it doesn't already exist at "c:\packages" - `New-Item 'c:\packages' -ItemType 'Directory'`
  1. Navigate to the packages folder. All commands from here will be in that packages folder.
 
