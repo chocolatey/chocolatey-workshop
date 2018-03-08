@@ -133,7 +133,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
     ~~~
  1. Install .NET Framework 4.5.2 - `choco install dotnet4.5.2 -y`
  1. (***HOST***) Run `vagrant reload` to reboot the machine. Okay, there are a few commands you might run from the host machine, typically those are vagrant commands. ***PHYSICAL***: Restart your machine
- 1. Install the latest GUI - `choco install chocolateygui --source="'local;https://www.myget.org/F/chocolateygui/'" --pre -y --ignore-dependencies` - this may error with 1603 if you have not rebooted the machine after installing .NET Framework 4.5.2.
+ 1. Install the latest GUI - `choco install chocolateygui --pre -y` - this may error with 1603 if you have not rebooted the machine after installing .NET Framework 4.5.2.
  1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`.
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
  1. Open the profile file and add the following content:
