@@ -1,5 +1,5 @@
 $installLocalFile = $false
-$localChocolateyPackageFilePath = 'C:\vagrant\packages\chocolatey.0.10.7.nupkg'
+$localChocolateyPackageFilePath = 'C:\vagrant\packages\chocolatey.0.10.8.nupkg'
 
 $installLatestBeta = $true
 # OR install a version directly

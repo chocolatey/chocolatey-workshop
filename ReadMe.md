@@ -97,18 +97,21 @@ It's preferred that you perform all of this exercise from a Vagrant image, but y
 
 #### Vagrant Setup
  1. Ensure you have a recent version of [Vagrant](https://downloads.vagrantup.com). It is suggested you have at least 1.8.x for linked clones which makes Windows VMs come up lightning quick. Windows machine - `choco install vagrant -y` (then `refreshenv`). OFFLINE: You should find this in the chocolatey-workshop/setup folder that was provided in the USB key.
- 1. Pre-download the vagrant box we will be using - `vagrant init ferventcoder/win2012r2-x64-nocm` (this is a 4GB box, about 8GB unpacked). OFFLINE: You should find this in the vagrant_boxes folder that was copied to your system.
+ 1. Pre-download the vagrant box we will be using - `vagrant init ferventcoder/win2012r2-x64-nocm` (this is a 4GB box, about 8GB unpacked). OFFLINE: You should find this in the vagrant_boxes folder that was copied to your system. If you didn't get this set as part of the setup.ps1, you will need to run something like `vagrant box add --name  ferventcoder/win2012r2-x64-nocm ./path/to/vagrant.box`
  1. VirtualBox - If you are completing the workshop with VirtualBox, ensure you have VirtualBox 5 or 5.1 installed. Windows install is `choco install virtualbox -y`. OFFLINE: You should find this in the chocolatey-workshop/setup folder.
  1. OFFLINE WORKSHOP: If we've had you copy files for offline use of this workshop, copy the packages folder into the `demo/packages` () folder. Also copy files from the `downloads` folder to `resources/installers`.
  1. OFFLINE: Go to `shell/InstallChocolatey.ps1` and set `$installLocalFile = $true` on line 1.
  1. C4B: Place the license you received (by email or fileshare) in `demo/resources/licenses`. Make sure it is named `chocolatey.license.xml`. OFFLINE: This should already be placed, but ensure that it is there.
  1. C4B TRIAL: If you have a trial license, put the `chocolatey.extension` package into the packages folder.
- 1. Run `vagrant up` (or `vagrant provision` if already running).
+ 1. In your command shell, make sure you are in the `demo` subfolder here. Run `vagrant up` (or `vagrant provision` if already running).
+
+**Troubleshooting:** If you run into a UUID issue, you may want to vagrant destroy, then find the `.vagrant` folder in the demo folder or a folder just above and remove that.
 
 #### In the VM / physical system for workshop completion
 
 All the rest of these commands will be done inside the Vagrant box (or box you are using for this workshop).
 
+ 1. **NOTE:** If you have placed the license file, you will see a message that looks like an error not finding licensed code. We are going to do that at the end of this, so bare with the issues.
  1. Run the following: `choco source add -n local -s c:\vagrant\packages --priority 1`. PHYSICAL: This is likely to be `choco source add -n local -s c:\<directories>\chocolatey-workshop\demo\packages --priority 1`.
  1. OFFLINE: Run the following: `choco source disable -n chocolatey`
  1. Licensed: Ensure that there is a file at `C:\ProgramData\Chocolatey\license` named `chocolatey.license.xml`. If not, you missed a step above, please manually set the file so you get a warning about being licensed without the licensed extension when you run `choco -v`.
