@@ -145,7 +145,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
     }
     ~~~
  1. Type `. $profile` to reload the PowerShell profile.
- 1. Create a folder for packages if it doesn't already exist at "c:\packages" - `New-Item 'c:\packages' -ItemType 'Directory'`
+ 1. Create a folder for packages if it doesn't already exist at "c:\packages" - `New-Item 'c:\packages' -ItemType 'Directory' -Force`
  1. Navigate to the packages folder. All commands from here will be in that packages folder.
 
 ### Exercise 1: Install Visual Studio Code
