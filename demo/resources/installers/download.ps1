@@ -10,4 +10,10 @@
 # get from main machine https://www.charlesproxy.com/download/
 # get from main machine http://www.7-zip.org/download.html
 
-choco download baretail chocolatey chocolatey-agent chocolatey.extension chocolateygui chocolatey.server   dotnet4.5.2 dotnet4.6.1 git launchy notepadplusplus visualstudiocode virtualbox --force --internalize  --internalize-all-urls --append-use-original-location --output-directory=..\..\packages
+choco download baretail chocolatey chocolatey-agent chocolatey.extension chocolateygui chocolatey.server   dotnet4.5.2 dotnet4.6.1 git launchy notepadplusplus visualstudiocode --force --internalize  --internalize-all-urls --append-use-original-location --output-directory=..\..\packages
+
+Remove-Item -Path '..\..\packages\download' -Recurse -Force -ErrorAction Continue
+
+choco download vagrant virtualbox --force --internalize  --internalize-all-urls --append-use-original-location --output-directory=..\..\..\setup
+
+Remove-Item -Path '..\..\..\setup\download' -Recurse -Force -ErrorAction Continue
