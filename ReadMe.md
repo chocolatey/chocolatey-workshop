@@ -137,7 +137,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
  1. Install/Upgrade Launchy, Notepad++, Baretail, and Git - `choco upgrade launchy notepadplusplus baretail git -y`.
  1. Add the PowerShell profile - type `Set-Content -Path $profile -Encoding UTF8 -Value ""`
  1. Type `Write-Host $profile`.
- 1. Use the location of that file to navigate in Windows Explorer and open the file in an editor. Add the following content, then save and close the file:
+ 1. Type `start $profile`. Add the following content, then save and close the file:
     ~~~powershell
     $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
     if (Test-Path($ChocolateyProfile)) {
@@ -158,7 +158,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
 ### Exercise 2: Create a package the old fashioned way
 This is meant to be an exploratory exercise and intentionally doesn't doesn't provide much direction. Most other exercises contain all steps are are very reflective.
 
-1. Download Google Chrome from https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi and https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi.
+1. Download Google Chrome from https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi and https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi. OFFLINE: These files should be in C:\vagrant\resources\installers.
 1. From a command line, call `choco new googlechrome`
 1. Go into the googlechrome folder and read the readme, look through the files that were created and try to create a package just using the 64 bit Google Chrome MSI.
 1. Run `choco pack`
@@ -175,7 +175,7 @@ Note that first time packaging this kind of throws you into the thick of it to s
 Let's start by packaging up and installing Puppet
  1. Run PowerShell as an administrator
  1. Type `packagebuilder` and hit enter.
- 1. Go to http://downloads.puppetlabs.com/windows/puppet5/ (URL: http://downloads.puppetlabs.com/windows/puppet5/puppet-agent-5.0.1-x86.msi - SHA256: 1D1D45FBF8134A70EA3A39F42CA070BD6600B2FA9506B186EBABA20D770858B1 / Url64: http://downloads.puppetlabs.com/windows/puppet5/puppet-agent-5.0.1-x64.msi - SHA256: 992FD379F60C6D57E9E819CFE7EAD423D1C8B547A6994113ECB96A8C0EE6227D)
+ 1. Go to http://downloads.puppetlabs.com/windows/puppet5/ (URL: http://downloads.puppetlabs.com/windows/puppet5/puppet-agent-5.0.1-x86.msi - SHA256: 1D1D45FBF8134A70EA3A39F42CA070BD6600B2FA9506B186EBABA20D770858B1 / Url64: http://downloads.puppetlabs.com/windows/puppet5/puppet-agent-5.0.1-x64.msi - SHA256: 992FD379F60C6D57E9E819CFE7EAD423D1C8B547A6994113ECB96A8C0EE6227D).
  1. In the interface that comes up, let's put in the Url and 64-bit Url.
  1. Also pass the SHA for verifying the file is what we hope.
  1. Click the box next to "Don't embed (don't include software binaries in package)?"
