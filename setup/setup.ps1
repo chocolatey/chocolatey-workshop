@@ -15,7 +15,7 @@ Function Get-Folder($initialDirectory)
 }
 
 $title = "Physical or Virtual"
-$message = "Are you using your physical machine for the workshop, or you you want to use a Virtual Image?"
+$message = "Are you using your physical machine for the workshop, or do you want to use a Virtual Image?"
 
 $physical = New-Object System.Management.Automation.Host.ChoiceDescription "&Physical", `
     "You are going to use your own machine, and have necessary for the Workshop"
