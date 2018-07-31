@@ -98,4 +98,10 @@ switch ($result)
 Write-Host "Where do you want to copy workshop files to?"
 
 $targetFolder = Get-Folder
-Copy-Item -Path "chocolatey-workshop/*" -Destination $targetFolder -Recurse -Verbose -ErrorAction $ErrorActionPreference
+
+# Only copy files if a folder is chosen
+if($targetFolder) {
+    Copy-Item -Path "chocolatey-workshop/*" -Destination $targetFolder -Recurse -Verbose -ErrorAction $ErrorActionPreference
+} else {
+    Write-Host "You have chosen to not copy files."
+}
