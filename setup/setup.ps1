@@ -39,7 +39,7 @@ switch ($result)
         $message = "Do you have Vagrant installed?"
 
         $yes = New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", `
-            "You already have Vagrant installed, and no further again will be taken."
+            "You already have Vagrant installed, and no further action will be taken."
 
         $no = New-Object System.Management.Automation.Host.ChoiceDescription "&No", `
             "You don't have Vagrant installed, and an attempt will be made to install it."
