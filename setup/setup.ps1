@@ -98,4 +98,4 @@ switch ($result)
 Write-Host "Where do you want to copy workshop files to?"
 
 $targetFolder = Get-Folder
-Copy-Item -Path "chocolatey-workshop/*" -Destination $targetFolder.FullName -Recurse -Verbose -ErrorAction $ErrorActionPreference
+Copy-Item -Path "chocolatey-workshop/*" -Destination $targetFolder -Recurse -Verbose -ErrorAction $ErrorActionPreference
