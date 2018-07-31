@@ -18,7 +18,7 @@ $title = "Physical or Virtual"
 $message = "Are you using your physical machine for the workshop, or you you want to use a Virtual Image?"
 
 $physical = New-Object System.Management.Automation.Host.ChoiceDescription "&Physical", `
-    "You are going to use your own machine, and have necessary for the Workshop"
+    "You are going to use your own machine, and have everything necessary for the Workshop"
 
 $virtual = New-Object System.Management.Automation.Host.ChoiceDescription "&Virtual", `
     "You want to use a Virtual Machine for the workshop"
