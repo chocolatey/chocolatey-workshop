@@ -150,7 +150,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
  1. Navigate to the packages folder. All commands from here will be in that packages folder.
 
 ### Exercise 1: Install Visual Studio Code
-1. Call `choco install visualstudiocode -y`
+1. Call `choco install vscode -y`
 1. Note the message "Environment Vars have changed".
 1. Type `code`. Notice that it errors.
 1. Type `refreshenv`.
@@ -320,9 +320,9 @@ We are moving towards updating the base image to speed this bit up so that there
 
 ### Exercise 15: Internalize Visual Studio Code package (MSP/C4B)
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
-1. Call `choco download visualstudiocode --internalize --resources-location http://somewhere/internal  -s https://chocolatey.org/api/v2/` (literally). You only need to specify source if you've disabled the community repository source.
+1. Call `choco download vscode --internalize --resources-location http://somewhere/internal  -s https://chocolatey.org/api/v2/` (literally). You only need to specify source if you've disabled the community repository source.
 1. While it is downloading, head into the download folder it created.
-1. Open the `download\visualstudiocode\tools\chocolateyInstall.ps1` (relative to the current working directory) in Notepad++ or Code.
+1. Open the `download\vscode\tools\chocolateyInstall.ps1` (relative to the current working directory) in Notepad++ or Code.
 1. Note the url variable.
 1. When it finishes downloading and creating the package, note how that changes.
 1. Note how it appended `UseOriginalLocation` in this case.
