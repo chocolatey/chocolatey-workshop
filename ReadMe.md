@@ -157,7 +157,7 @@ All the rest of these commands will be done inside the Vagrant box (or box you a
 1. Type `code`. Note that it opens Visual Studio Code.
 
 ### Exercise 2: Create a package the old fashioned way
-This is meant to be an exploratory exercise and intentionally doesn't doesn't provide much direction. Most other exercises contain all steps are are very reflective.
+This is meant to be an exploratory exercise and intentionally doesn't doesn't provide much direction. Most other exercises contain all steps and are very reflective.
 
 1. Download Google Chrome from https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi and https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise.msi. OFFLINE: These files should be in C:\vagrant\resources\installers.
 1. From a command line, call `choco new googlechrome`
