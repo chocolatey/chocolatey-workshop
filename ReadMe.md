@@ -245,7 +245,7 @@ Let's start by packaging up and installing Puppet
 1. ***HOST***: Start with `vagrant reload` to clear pending reboots.
 1. Install KB2919355 - `choco install KB2919355 -y` - this one or the other Windows update takes a ***very*** long time to install, just be patient and let it complete.
 1. ***HOST***: Run `vagrant reload`.
-1. Install KB2919355 - `choco install KB2919355 -y` (note this may take a long time to install)
+1. Install KB2919442 - `choco install KB2919442 -y` (note this may take a long time to install)
 1. ***HOST***: Run `vagrant reload`. Yes, we know. Windows, whaddayado?
 1. Run `choco install dotnet4.6.1 -y`
 1. ***HOST***: You guessed it, one more time - `vagrant reload`
