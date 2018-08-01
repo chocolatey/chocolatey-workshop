@@ -68,7 +68,7 @@ You can complete this workshop with either Chocolatey open source (FOSS) or with
 
 * Package - in Chocolatey-speak, package is strictly a Nupkg file. Binaries and installers are referred to as software or binaries. This reduces confusion.
 * C4B - you see this next to some exercises. This is the short form of Chocolatey for Business.
-* MSP - Managed Service Provider. Also a licensed edition of Chocolatey that has less features and suport than C4B, but has a price point that works well for MSP organizations.
+* MSP - Managed Service Provider. Also a licensed edition of Chocolatey that has less features and support than C4B, but has a price point that works well for MSP organizations.
 * See [Notes](#notes)
 
 ## Types of Packages
