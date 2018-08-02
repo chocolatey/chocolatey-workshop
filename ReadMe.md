@@ -192,7 +192,7 @@ Let's start by packaging up and installing Puppet
     * Also note how it created nice packaging.
     * Optionally we can remove some of the comments and areas we don't need to tidy this up.
  1. Right click on nuspec and select "Compile Chocolatey Package..." / type `choco pack` from that directory.
- 1. Copy the resulting file up a directory
+ 1. Copy the resulting file to the parent `packages` directory
  1. Call `choco install puppet-agent -s . -y` (this tells Chocolatey to install from the local source location ".", which is current directory in both PowerShell.exe and Cmd.exe)
 
 ### Exercise 5: Create a package with Package Builder (Right Click) (C4B)
@@ -243,11 +243,11 @@ Let's start by packaging up and installing Puppet
 
 ### Exercise 7: Set up a local Chocolatey.Server
 1. ***HOST***: Start with `vagrant reload` to clear pending reboots.
-1. Install KB2919355 - `choco install KB2919355 -y` - this one or the other Windows update takes a ***very*** long time to install, just be patient and let it complete.
+1. Start the Windows Update service - `Get-Service wuauserv | Set-Service -StartupType Automatic -Passthru | Start-Service`
+1. Install KB2919355 - `choco install KB2919355 -y --skip-virus-check` - this one or the other Windows update takes a ***very*** long time to install, just be patient and let it complete.
 1. ***HOST***: Run `vagrant reload`.
-1. Install KB2919442 - `choco install KB2919442 -y` (note this may take a long time to install)
-1. ***HOST***: Run `vagrant reload`. Yes, we know. Windows, whaddayado?
 1. Run `choco install dotnet4.6.1 -y`
+1. Stop the Windows Update service - `Get-Service wuauserv | Set-Service -StartupType Disabled -Passthru | Stop-Service`
 1. ***HOST***: You guessed it, one more time - `vagrant reload`
 1. Ensure IIS and Asp.NET are installed
     * `choco install IIS-WebServer -y --source windowsfeatures`
@@ -325,7 +325,7 @@ We are moving towards updating the base image to speed this bit up so that there
 1. Open the `download\vscode\tools\chocolateyInstall.ps1` (relative to the current working directory) in Notepad++ or Code.
 1. Note the url variable.
 1. When it finishes downloading and creating the package, note how that changes.
-1. Note how it appended `UseOriginalLocation` in this case.
+1. Note how it appended `-UseOriginalLocation` in this case.
 
 ### Exercise 16: Internalize AdobeReader package (MSP/C4B)
 1. Run `choco feature list`. Determine if `internalizeAppendUseOriginalLocation` is on. Turn it on otherwise.
@@ -484,7 +484,7 @@ We are going to create a package that checks for prerequisites prior to the inst
 ### Exercise 22: Use package parameters
 1. Run `choco new packagewithparameters`
 1. Remove everything but the nuspec and `tools\chocolateyInstall.ps1`.
-1. In the nuspec, take a dependency on `chocolatey-core.extension` version `[1,3)` (which means at least v1, but anything less than v3).
+1. In the nuspec, take a dependency on `chocolatey-core.extension` version `[1,3)` (which means at least v1, but anything less than v3) and change the version to `0.0.1`.
 1. In the `chocolateyInstall.ps1`, delete everything and just add the following:
     ~~~powershell
     $pp = Get-PackageParameters
