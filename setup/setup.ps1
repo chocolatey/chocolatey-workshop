@@ -18,7 +18,7 @@ Function Pause ($Message = "Press any key to continue . . . ") {
         $Shell = New-Object -ComObject "WScript.Shell"
         $Button = $Shell.Popup("Click OK to continue.", 0, "Script Paused", 0)
     }
-    else {     
+    else {
         Write-Host -NoNewline $Message
         [void][System.Console]::ReadKey($true)
         Write-Host
