@@ -52,11 +52,11 @@ switch ($result)
         {
             0
             {
-                choco install vagrant --source "chocolatey-workshop/setup"
+                "You said you have Vagrant installed"
             }
             1
             {
-                "You said you have Vagrant installed"
+                choco install vagrant --source "chocolatey-workshop/setup"
             }
         }
 
