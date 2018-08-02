@@ -96,7 +96,7 @@ switch ($result)
             1
             {
                 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-                vagrant box add --provider hyperv --name "vagrant_boxes/win2012r2-x64-hyperv-nocm.box"
+                vagrant box add --provider hyperv --name ferventcoder/win2012r2-x64-nocm "vagrant_boxes/win2012r2-x64-hyperv-nocm.box"
             }
             2
             {
