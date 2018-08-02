@@ -105,3 +105,6 @@ if($targetFolder) {
 } else {
     Write-Host "You have chosen to not copy files."
 }
+
+Write-Host -NoNewLine 'Press any key to continue...';
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
