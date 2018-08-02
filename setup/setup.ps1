@@ -14,6 +14,18 @@ Function Get-Folder($initialDirectory)
     return $folder
 }
 
+Function Pause ($Message = "Press any key to continue . . . ") {
+    if ((Test-Path variable:psISE) -and $psISE) {
+        $Shell = New-Object -ComObject "WScript.Shell"
+        $Button = $Shell.Popup("Click OK to continue.", 0, "Script Paused", 0)
+    }
+    else {     
+        Write-Host -NoNewline $Message
+        [void][System.Console]::ReadKey($true)
+        Write-Host
+    }
+}
+
 $title = "Physical or Virtual"
 $message = "Are you using your physical machine for the workshop, or do you want to use a Virtual Image?"
 
@@ -106,5 +118,4 @@ if($targetFolder) {
     Write-Host "You have chosen to not copy files."
 }
 
-Write-Host -NoNewLine 'Press any key to continue...';
-$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+Pause
