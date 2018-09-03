@@ -355,7 +355,7 @@ To have a completely offline install for packaging, you need to remove
 1. You are now using Chocolatey with internal only packages.
 
 ### Exercise 18: Create an extension package
-We are going to create a package that checks for prerequisites prior to the install, such as ensuring at least 1 GB of free space.
+We are going to create a package that checks for prerequisites prior to the install, such as ensuring at least 3 GB of free space.
 
 1. Run `choco new prerequisites.extension`
 1. Delete the `prerequisites.extension\tools` directory.
