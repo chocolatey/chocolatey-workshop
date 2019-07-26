@@ -165,7 +165,7 @@ This is meant to be an exploratory exercise and intentionally doesn't doesn't pr
 1. Run `choco pack`
 1. Install the package using Chocolatey - `choco install googlechrome -y -s .`
 
-Note that first time packaging this kind of throws you into the thick of it to see if the information provided is enough to move forward.
+Note that first time packaging like this kind of throws you into the thick of it to see if the information provided is enough to move forward.
 
 ### Exercise 3: Create a package with Package Builder CLI (C4B)
 1. Let's create that GoogleChrome package again.
