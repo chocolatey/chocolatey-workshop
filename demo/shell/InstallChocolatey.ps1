@@ -1,3 +1,5 @@
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+
 $installLocalFile = $false
 $localChocolateyPackageFilePath = 'C:\vagrant\packages\chocolatey.0.10.8.nupkg'
 
